@@ -16,18 +16,17 @@ public class JpaMain {
         tx.begin();
 
         try{
-            Member findMember = em.find(Member.class, 1L);
-            List<Member> result = em.createQuery("select m from Member as m", Member.class)
-                    .setFirstResult(5)
-                    .setMaxResults(8)
-                    .getResultList();
+            // 영속
+            Member member = em.find(Member.class, 150L);
+            member.setName("ㅁㅁㅁㅁㅁㅁ");
 
-            for (Member member : result){
-                System.out.println("member.name = " + member.getName());
-            }
-//            findMember.setName("HelloJPA");
-//            System.out.println("findMember.getId() = " + findMember.getId());
-//            System.out.println("findMember.getName() = " + findMember.getName());
+            em.clear();
+
+            Member member2 = em.find(Member.class, 150L);
+            System.out.println(member2.getName());
+
+            System.out.println("========================");
+
             tx.commit();
         } catch (Exception e){
             tx.rollback();
